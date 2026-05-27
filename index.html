@@ -2,10 +2,748 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Omkar Deshmukh — AI Engineer & Full Stack Developer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+
+        /* ── Vertical Social Sidebar ── */
+        #social-sidebar {
+            position: fixed;
+            left: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+        #social-sidebar::before,
+        #social-sidebar::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 50px;
+            background: #ccc;
+        }
+        #social-sidebar a {
+            color: #000;
+            font-size: 17px;
+            text-decoration: none;
+            transition: opacity 0.2s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #social-sidebar a:hover { opacity: 0.4; transform: scale(1.2); }
+
+        /* Hero sub-label */
+        #page > .hero-role {
+            position: absolute;
+            top: 48%;
+            left: 5%;
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: #aaa;
+            text-transform: uppercase;
+            font-family: gilroy, sans-serif;
+        }
+
+        /* Page 3 contact strip */
+        #contact-strip {
+            position: absolute;
+            bottom: 12%;
+            left: 10%;
+            display: flex;
+            gap: 36px;
+            align-items: center;
+        }
+        #contact-strip a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #000;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            font-family: gilroy, sans-serif;
+            border-bottom: 1px solid #000;
+            padding-bottom: 3px;
+            transition: opacity 0.2s;
+        }
+        #contact-strip a:hover { opacity: 0.45; }
+        #contact-strip a i { font-size: 16px; }
+
+        /* Available badge */
+        #available-badge {
+            position: absolute;
+            top: 12%;
+            left: 10%;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #7c7c7c;
+            font-family: gilroy, sans-serif;
+        }
+        #available-badge span.dot {
+            width: 8px; height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+        /* Skills tag row on page2 */
+        #skills-row {
+            position: absolute;
+            bottom: 12%;
+            left: 10%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        #skills-row span {
+            padding: 6px 16px;
+            border: 1px solid #ccc;
+            border-radius: 50px;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            font-family: gilroy, sans-serif;
+            color: #7c7c7c;
+        }
+
+        /* ── Page 1 — dual-role badges ── */
+        #page1 .role-badges {
+            position: absolute;
+            bottom: 12%;
+            left: 10%;
+            display: flex;
+            gap: 14px;
+        }
+        #page1 .role-badges span {
+            padding: 8px 22px;
+            border: 1px solid #000;
+            border-radius: 50px;
+            font-size: 11px;
+            letter-spacing: 2.5px;
+            font-family: gilroy, sans-serif;
+        }
+        #page1 .role-badges span.filled {
+            background: #000;
+            color: #fff;
+        }
+
+        /* ═══════════════════════════════════════
+           NEW SECTIONS
+        ═══════════════════════════════════════ */
+
+        .section {
+            position: relative;
+            width: 100%;
+            background-color: #f1f1f1;
+            padding: 120px 10% 100px 10%;
+            font-family: gilroy, sans-serif;
+        }
+        .section-label {
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: #aaa;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+        .section-title {
+            font-size: 62px;
+            font-weight: 500;
+            line-height: 1.1;
+            margin-bottom: 70px;
+        }
+
+        /* Marquee divider */
+        .marquee-divider {
+            width: 100%;
+            overflow: hidden;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 14px 0;
+            background: #f1f1f1;
+        }
+        .marquee-divider .marquee-inner {
+            display: flex;
+            white-space: nowrap;
+            animation: anim 18s linear infinite;
+        }
+        .marquee-divider .marquee-inner span {
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: #bbb;
+            padding-right: 60px;
+            text-transform: uppercase;
+            font-family: gilroy, sans-serif;
+        }
+
+        /* ── SKILL STACK — page2 replacement text ── */
+        /* (page2 big h1 stays same, just text changed) */
+
+        /* ── STACK SECTION — full tech visual ── */
+        #section-stack {
+            border-top: 1px solid #e0e0e0;
+        }
+        .stack-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2px;
+        }
+        .stack-col {
+            background: #fff;
+            padding: 44px 38px;
+        }
+        .stack-col-label {
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: #bbb;
+            margin-bottom: 24px;
+        }
+        .stack-col-title {
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 28px;
+            line-height: 1.3;
+        }
+        .stack-items { display: flex; flex-direction: column; gap: 14px; }
+        .stack-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .stack-item-name {
+            font-size: 13px;
+            color: #7c7c7c;
+            letter-spacing: 1px;
+        }
+        .stack-bar {
+            width: 80px;
+            height: 3px;
+            background: #eee;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+        .stack-bar-fill {
+            height: 100%;
+            background: #000;
+            border-radius: 99px;
+        }
+
+        /* ── SALARY TARGET BANNER ── */
+        .salary-banner {
+            background: #000;
+            color: #fff;
+            padding: 60px 10%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: gilroy, sans-serif;
+            gap: 40px;
+        }
+        .salary-banner h2 {
+            font-size: 48px;
+            font-weight: 500;
+            line-height: 1.15;
+        }
+        .salary-banner h2 span {
+            -webkit-text-stroke: 1px #fff;
+            color: transparent;
+        }
+        .salary-stats {
+            display: flex;
+            gap: 48px;
+            flex-shrink: 0;
+        }
+        .salary-stat { text-align: center; }
+        .salary-stat .num {
+            font-size: 40px;
+            font-weight: 500;
+            letter-spacing: -1px;
+            display: block;
+        }
+        .salary-stat .lbl {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #888;
+            margin-top: 6px;
+            display: block;
+        }
+        .salary-stat .num.target { color: #22c55e; }
+
+        /* ── PROJECTS ── */
+        #section-projects { border-top: 1px solid #e0e0e0; }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+        }
+        .project-card {
+            background: #fff;
+            padding: 48px 44px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s;
+            cursor: default;
+        }
+        .project-card:hover { background: #000; }
+        .project-card:hover .project-num,
+        .project-card:hover .project-name,
+        .project-card:hover .project-desc,
+        .project-card:hover .project-tags span { color: #fff; border-color: #444; }
+        .project-card:hover .project-arrow { color: #fff; }
+        .project-card:hover .project-type { border-color: #555; color: #aaa; }
+        .project-num { font-size: 11px; letter-spacing: 2px; color: #bbb; margin-bottom: 16px; }
+        .project-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+        .project-name { font-size: 26px; font-weight: 500; transition: color 0.3s; }
+        .project-type {
+            font-size: 10px;
+            letter-spacing: 2px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            padding: 4px 12px;
+            color: #bbb;
+            transition: color 0.3s, border-color 0.3s;
+            white-space: nowrap;
+        }
+        .project-desc { font-size: 13px; color: #7c7c7c; line-height: 1.8; font-weight: 400; margin-bottom: 28px; transition: color 0.3s; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+        .project-tags span { font-size: 10px; letter-spacing: 1.5px; border: 1px solid #ddd; border-radius: 50px; padding: 4px 12px; color: #999; transition: color 0.3s, border-color 0.3s; }
+        .project-arrow { font-size: 20px; color: #000; transition: color 0.3s; }
+
+        /* ── EXPERIENCE ── */
+        #section-experience { border-top: 1px solid #e0e0e0; }
+        .exp-list { display: flex; flex-direction: column; }
+        .exp-item {
+            display: grid;
+            grid-template-columns: 200px 1fr 160px;
+            align-items: start;
+            gap: 40px;
+            padding: 36px 0;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        .exp-item:first-child { border-top: 1px solid #e8e8e8; }
+        .exp-period { font-size: 12px; letter-spacing: 1.5px; color: #aaa; padding-top: 4px; }
+        .exp-role { font-size: 22px; font-weight: 500; margin-bottom: 6px; }
+        .exp-company { font-size: 13px; color: #7c7c7c; letter-spacing: 1px; margin-bottom: 14px; }
+        .exp-desc { font-size: 13px; color: #999; line-height: 1.8; font-weight: 400; max-width: 540px; }
+        .exp-badge { font-size: 10px; letter-spacing: 2px; border: 1px solid #ddd; border-radius: 50px; padding: 5px 14px; color: #aaa; text-align: center; margin-top: 4px; }
+
+        /* ── ROADMAP ── */
+        #section-roadmap { border-top: 1px solid #e0e0e0; }
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+        .roadmap-step {
+            background: #fff;
+            padding: 40px 32px;
+            position: relative;
+        }
+        .roadmap-step.active { background: #000; }
+        .roadmap-step.active .rs-year,
+        .roadmap-step.active .rs-title,
+        .roadmap-step.active .rs-item { color: #fff; }
+        .roadmap-step.active .rs-status { border-color: #22c55e; color: #22c55e; }
+        .rs-year { font-size: 11px; letter-spacing: 2px; color: #bbb; margin-bottom: 20px; }
+        .rs-title { font-size: 18px; font-weight: 500; margin-bottom: 20px; line-height: 1.3; }
+        .rs-items { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+        .rs-item { font-size: 12px; color: #7c7c7c; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
+        .rs-item::before { content: '—'; color: #ccc; }
+        .rs-status { font-size: 10px; letter-spacing: 2px; border: 1px solid #ddd; border-radius: 50px; padding: 4px 12px; color: #bbb; display: inline-block; }
+
+        /* ── CONTACT ── */
+        #section-contact {
+            border-top: 1px solid #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 140px;
+            padding-bottom: 120px;
+        }
+        .contact-big {
+            font-size: clamp(48px, 8vw, 110px);
+            font-weight: 500;
+            line-height: 1;
+            margin-bottom: 60px;
+            letter-spacing: -2px;
+        }
+        .contact-big span {
+            -webkit-text-stroke: 1.2px #000;
+            color: transparent;
+        }
+        .contact-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 80px; }
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border: 1px solid #000;
+            border-radius: 50px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            color: #000;
+            font-family: gilroy, sans-serif;
+            transition: background 0.25s, color 0.25s;
+        }
+        .contact-btn:hover { background: #000; color: #fff; }
+        .contact-btn.filled { background: #000; color: #fff; }
+        .contact-btn.filled:hover { background: #333; }
+
+        /* Footer */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 32px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #bbb;
+            font-family: gilroy, sans-serif;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello I am Omkar</h1>
+
+    <!-- ── VERTICAL SOCIAL SIDEBAR ── -->
+    <div id="social-sidebar">
+        <a href="https://linkedin.com/in/omkar-deshmukh" target="_blank" title="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+        <a href="https://github.com/omkardeshmukh" target="_blank" title="GitHub">
+            <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="mailto:omkar.deshmukh@email.com" title="Email">
+            <i class="fa-regular fa-envelope"></i>
+        </a>
+    </div>
+
+    <!-- ── NAV ── -->
+    <div id="nav">
+        <h3><b>OMKAR</b> DESHMUKH*</h3>
+        <button>AI ENGINEER &amp; FULL STACK</button>
+    </div>
+
+    <div id="main">
+
+        <!-- ── PAGE 0 — Hero / Canvas ── -->
+        <div id="page">
+            <div id="loop">
+                <h1>AI ENGINEER &nbsp;·&nbsp; <span>FULL STACK DEV</span> &nbsp;·&nbsp; LLM ENGINEERING &nbsp;·&nbsp; <span><i>AI AGENTS.</i></span> &nbsp;·&nbsp;</h1>
+                <h1>AI ENGINEER &nbsp;·&nbsp; <span>FULL STACK DEV</span> &nbsp;·&nbsp; LLM ENGINEERING &nbsp;·&nbsp; <span><i>AI AGENTS.</i></span> &nbsp;·&nbsp;</h1>
+                <h1>AI ENGINEER &nbsp;·&nbsp; <span>FULL STACK DEV</span> &nbsp;·&nbsp; LLM ENGINEERING &nbsp;·&nbsp; <span><i>AI AGENTS.</i></span> &nbsp;·&nbsp;</h1>
+            </div>
+           
+            <h3>BUILDING INTELLIGENT FULL-STACK SYSTEMS <br> LLMs, AI AGENTS, <br>RAG PIPELINES &amp; MODERN WEB APPS. FROM MODEL TO PRODUCTION.</h3>
+            <h4><br>...SCROLL TO EXPLORE</h4>
+            <canvas></canvas>
+        </div>
+
+        <!-- ── PAGE 1 — About / Dual Role ── -->
+        <div id="page1">
+            <div id="right-text">
+                <h3>WHO I AM</h3>
+                <h1>AI ENGINEER
+                    <br>FULL STACK DEV
+                    <br>BUILDER</h1>
+            </div>
+            <div id="left-text">
+                <h1>LLM SYSTEMS
+                    <br>REACT + FASTAPI
+                    <br>END-TO-END</h1>
+                <h3>...FROM MODEL TO PRODUCTION, I BUILD IT ALL</h3>
+            </div>
+            <div class="role-badges">
+                <span class="filled">AI ENGINEER</span>
+                <span>FULL STACK DEVELOPER</span>
+                <span>MLOPS</span>
+            </div>
+        </div>
+
+        <!-- ── PAGE 2 — Core Skills ── -->
+        <div id="page2">
+            <div id="text1">
+                <h3>CORE SKILLS</h3>
+                <h1>LLM
+                    <br>ENGINEERING
+                    <br>AI AGENTS</h1>
+            </div>
+            <div id="text2">
+                <p>SPECIALISED IN BUILDING PRODUCTION-READY AI SYSTEMS —<br>
+                   RAG PIPELINES, AUTONOMOUS AGENTS, AND FINE-TUNED LLMS.<br>
+                   FULL STACK BACKGROUND WITH REACT, FASTAPI, DOCKER,<br>
+                   AND CLOUD DEPLOYMENT ON AWS &amp; GCP.</p>
+            </div>
+            <div id="skills-row">
+                <span>LLM ENGINEERING</span>
+                <span>AI AGENTS</span>
+                <span>RAG / VECTOR DB</span>
+                <span>PYTORCH / JAX</span>
+                <span>FINE-TUNING</span>
+                <span>REACT.JS</span>
+                <span>FASTAPI</span>
+                <span>MLOPS</span>
+                <span>DOCKER / K8S</span>
+                <span>AWS / GCP</span>
+                <span>LANGCHAIN</span>
+                <span>NODE.JS</span>
+            </div>
+        </div>
+
+        <!-- ── PAGE 3 — Connect ── -->
+        <div id="page3">
+            <div id="available-badge">
+                <span class="dot"></span>
+                AVAILABLE FOR OPPORTUNITIES
+            </div>
+            <div id="text3">
+                <h3>OMKAR DESHMUKH / LET'S CONNECT</h3>
+                <h1>LET'S
+<br>BUILD
+<br>TOGETHER</h1>
+            </div>
+            <div id="contact-strip">
+               
+            </div>
+        </div>
+
+        <!-- ════════════════════
+             MARQUEE → TECH STACK
+        ════════════════════ -->
+        <div class="marquee-divider">
+            
+        </div>
+
+        <!-- ── TECH STACK SECTION ── -->
+        <div class="section" id="section-stack">
+            <p class="section-label">OMKAR DESHMUKH / FULL STACK AI</p>
+            <h2 class="section-title">TECH STACK</h2>
+
+            <div class="stack-grid">
+
+                <div class="stack-col">
+                    <p class="stack-col-label">AI / ML LAYER</p>
+                    <h3 class="stack-col-title">INTELLIGENCE<br>LAYER</h3>
+                    <div class="stack-items">
+                        <div class="stack-item">
+                            <span class="stack-item-name">LLM ENGINEERING</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:95%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">AI AGENTS</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:90%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">RAG SYSTEMS</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:88%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">PYTORCH / JAX</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:82%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">FINE-TUNING / RLHF</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:78%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">COMPUTER VISION</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:75%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stack-col">
+                    <p class="stack-col-label">BACKEND / API LAYER</p>
+                    <h3 class="stack-col-title">SERVER<br>LAYER</h3>
+                    <div class="stack-items">
+                        <div class="stack-item">
+                            <span class="stack-item-name">PYTHON (ADVANCED)</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:95%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">FASTAPI</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:88%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">NODE.JS</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:80%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">POSTGRESQL / MONGODB</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:78%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">VECTOR DB (FAISS / PINECONE)</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:85%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">REST / GRAPHQL APIs</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:82%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stack-col">
+                    <p class="stack-col-label">FRONTEND / DEVOPS LAYER</p>
+                    <h3 class="stack-col-title">PRODUCT<br>LAYER</h3>
+                    <div class="stack-items">
+                        <div class="stack-item">
+                            <span class="stack-item-name">REACT.JS</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:85%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">NEXT.JS</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:78%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">DOCKER / KUBERNETES</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:80%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">AWS / GCP</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:76%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">MLOPS (MLFLOW)</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:74%"></div></div>
+                        </div>
+                        <div class="stack-item">
+                            <span class="stack-item-name">GIT / CI-CD</span>
+                            <div class="stack-bar"><div class="stack-bar-fill" style="width:88%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ════════════════════
+             MARQUEE → PROJECTS
+        ════════════════════ -->
+        <div class="marquee-divider">
+           
+        </div>
+
+        <!-- ── PROJECTS SECTION ── -->
+        <div class="section" id="section-projects">
+            <p class="section-label">OMKAR DESHMUKH / SELECTED WORK</p>
+            <h2 class="section-title">PROJECTS</h2>
+
+            <div class="projects-grid">
+
+                <div class="project-card">
+                    <p class="project-num">01</p>
+                    <div class="project-header">
+                        <h3 class="project-name">RAG DOCUMENT Q&amp;A</h3>
+                        <span class="project-type">AI ENGINEERING</span>
+                    </div>
+                    <p class="project-desc">End-to-end Retrieval-Augmented Generation pipeline that ingests PDFs, embeds into a vector store, and answers natural-language queries with cited sources using an open-source LLM.</p>
+                    <div class="project-tags">
+                        <span>LANGCHAIN</span><span>FAISS</span><span>HUGGING FACE</span><span>FASTAPI</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right project-arrow"></i>
+                </div>
+
+                <div class="project-card">
+                    <p class="project-num">02</p>
+                    <div class="project-header">
+                        <h3 class="project-name">AI AGENT DASHBOARD</h3>
+                        <span class="project-type">FULL STACK + AI</span>
+                    </div>
+                    <p class="project-desc">Full-stack web app where an autonomous LangGraph agent handles web search, code execution, and API calls. React frontend with real-time streaming responses via FastAPI + WebSockets.</p>
+                    <div class="project-tags">
+                        <span>REACT.JS</span><span>LANGGRAPH</span><span>FASTAPI</span><span>WEBSOCKETS</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right project-arrow"></i>
+                </div>
+
+                <div class="project-card">
+                    <p class="project-num">03</p>
+                    <div class="project-header">
+                        <h3 class="project-name">LLM FINE-TUNING PIPELINE</h3>
+                        <span class="project-type">AI ENGINEERING</span>
+                    </div>
+                    <p class="project-desc">Domain-specific fine-tuning of a 7B parameter model using QLoRA / PEFT on custom instruction datasets. Full MLOps pipeline with experiment tracking and automated evaluation metrics.</p>
+                    <div class="project-tags">
+                        <span>QLORA</span><span>PEFT</span><span>TRANSFORMERS</span><span>MLFLOW</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right project-arrow"></i>
+                </div>
+
+                <div class="project-card">
+                    <p class="project-num">04</p>
+                    <div class="project-header">
+                        <h3 class="project-name">REAL-TIME CV APP</h3>
+                        <span class="project-type">FULL STACK + CV</span>
+                    </div>
+                    <p class="project-desc">Full-stack computer vision application with YOLOv8 backend deployed via FastAPI, and a React dashboard showing live detection results. Dockerised and deployed on AWS EC2.</p>
+                    <div class="project-tags">
+                        <span>YOLOV8</span><span>REACT</span><span>FASTAPI</span><span>DOCKER</span><span>AWS</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right project-arrow"></i>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="marquee-divider">
+            <div class="marquee-inner">
+                <span>CONTACT</span><span>·</span><span>HIRE ME</span><span>·</span>
+                <span>LET'S BUILD</span><span>·</span><span>GET IN TOUCH</span><span>·</span>
+                <span>CONTACT</span><span>·</span><span>HIRE ME</span><span>·</span>
+                <span>LET'S BUILD</span><span>·</span><span>GET IN TOUCH</span><span>·</span>
+            </div>
+        </div>
+
+        <!-- ── CONTACT SECTION ── -->
+        <div class="section" id="section-contact">
+            <p class="section-label">OMKAR DESHMUKH / GET IN TOUCH</p>
+
+            <h2 class="contact-big">
+                LET'S<br>
+                <span>BUILD</span><br>
+                SOMETHING.
+            </h2>
+
+            <div class="contact-row">
+                <a class="contact-btn filled" href="mailto:omkar.deshmukh@email.com">
+                    <i class="fa-regular fa-envelope"></i> SEND AN EMAIL
+                </a>
+                <a class="contact-btn" href="https://linkedin.com/in/omkar-deshmukh" target="_blank">
+                    <i class="fa-brands fa-linkedin-in"></i> LINKEDIN
+                </a>
+                <a class="contact-btn" href="https://github.com/omkardeshmukh" target="_blank">
+                    <i class="fa-brands fa-github"></i> GITHUB
+                </a>
+            </div>
+
+            <div class="footer">
+                <span>OMKAR RAVINDRA DESHMUKH</span>
+                <span>AI ENGINEER &amp; FULL STACK DEVELOPER &nbsp;/&nbsp; INDIA</span>
+                <span>DESIGNED &amp;BY OMKAR</span>
+            </div>
+        </div>
+
+    </div><!-- /#main -->
+
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js" integrity="sha512-AMl4wfwAmDM1lsQvVBBRHYENn1FR8cfOTpt8QVbb/P55mYOdahHD4LmHM1W55pNe3j/3od8ELzPf/8eNkkjISQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
 </body>
 </html>
